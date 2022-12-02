@@ -3,16 +3,6 @@ const ArrayList = std.ArrayList;
 
 var gpa = std.heap.GeneralPurposeAllocator(.{}){};
 
-fn largestNumber(list: ArrayList(u32)) u32 {
-  var largest: u32 = 0;
-
-  for(list.items) |item| {
-    if(item > largest) largest = item;
-  }
-
-  return largest;
-}
-
 pub fn main() !void {
   const allocator = gpa.allocator();
 
@@ -38,5 +28,9 @@ pub fn main() !void {
     }
   }
 
-  std.debug.print("{}\n", .{largestNumber(list)});
+  std.sort.sort(u32, list.items, {}, std.sort.desc(u32));
+  const top3 = list.items[0] + list.items[1] + list.items[2];
+
+  std.debug.print("Most calories: {}\n", .{list.items[0]});
+  std.debug.print("Top 3 elves: {}\n", .{top3});
 }
