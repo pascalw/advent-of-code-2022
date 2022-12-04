@@ -7,7 +7,7 @@ module Rucksack = struct
     let mid = (String.length input / 2) in
     let left = String.sub input ~pos: 0 ~len: mid in
     let right = String.sub input ~pos: mid ~len: mid in
-      { left=left; right=right}
+      { left; right}
 
   let display t =
     sprintf "l:%s r:%s" t.left t.right
@@ -15,7 +15,8 @@ module Rucksack = struct
   let duplicate_item t =
     let left_list = String.to_list t.left in
     let right_list = String.to_list t.right in
-      List.find_exn left_list ~f: (fun c -> List.exists right_list ~f: (fun cc -> phys_equal cc c))
+      List.find_exn left_list ~f:(fun c ->
+          List.exists right_list ~f:(fun cc -> phys_equal cc c))
 end
 
 module Reorganization = struct
