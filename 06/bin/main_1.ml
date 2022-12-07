@@ -1,15 +1,5 @@
 open Core
-
-module Datastream = struct
-  let is_start_marker chars =
-    not (List.contains_dup chars ~compare: compare_char)
-
-  let rec find_start_marker ?(pos = 0) stream =
-    match stream with
-    | (a :: b :: c :: d :: _rest) when is_start_marker [a;b;c;d] -> pos + 4, String.of_char_list [a;b;c;d]
-    | (_ :: rest) -> find_start_marker rest ~pos: (pos + 1)
-    | _ -> failwith "input exhausted"
-end
+open Aoc_06
 
 module Input = struct
   let parse file =
@@ -21,5 +11,5 @@ end
 
 let () =
   Input.parse "input"
-  |> Datastream.find_start_marker
+  |> Datastream.marker_finder 4
   |> fun (pos, marker) -> printf "%d %s\n" pos marker
