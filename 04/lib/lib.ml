@@ -21,4 +21,9 @@ module SectionAssignments = struct
   | (r1a, r1b) , (r2a, r2b) when r2a >= r1a && r2b <= r1b -> true
   | (r1a, r1b) , (r2a, r2b) when r1a >= r2a && r1b <= r2b -> true
   | _ -> false
+
+  let has_overlap r1 r2 = match r1, r2 with
+  | (r1s, r1e) , (r2s, _r2e) when r2s >= r1s && r2s <= r1e -> true
+  | (r1s, _r1e) , (r2s, r2e) when r1s >= r2s && r1s <= r2e -> true
+  | _ -> false
 end
